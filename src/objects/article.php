@@ -86,24 +86,18 @@ class Article {
 
     public function readPaging($from_record_num, $records_per_page)
     {
-        // выборка
-        $query = "SELECT * FROM Article";
+        $query = "SELECT * FROM Article WHERE ?, ?";
 
-        // подготовка запроса
         $stmt = $this->conn->prepare($query);
 
-        // свяжем значения переменных
         $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
         $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
 
-        // выполняем запрос
         $stmt->execute();
 
-        // вернём значения из базы данных
         return $stmt;
 }
 
-// данный метод возвращает кол-во товаров
 public function count()
 {
     $query = "SELECT COUNT(*) as total_rows FROM " . $this->table_name . "";
